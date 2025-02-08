@@ -36,7 +36,7 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 61,
+				"line" : 62,
 				"parent" : 0
 			},
 			{
@@ -142,7 +142,8 @@
 				36,
 				38,
 				40,
-				42
+				42,
+				43
 			]
 		},
 		{
@@ -267,7 +268,8 @@
 				36,
 				38,
 				40,
-				42
+				42,
+				43
 			]
 		},
 		{
@@ -535,6 +537,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "simtemplate/input/spheric.c",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "simtemplate/codeSIDM1/myvector.c",
 			"sourceGroupIndex" : 0
 		}
 	],

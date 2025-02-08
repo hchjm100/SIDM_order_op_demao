@@ -28,6 +28,7 @@
 
 #define  MAXTOPNODES     200000   /*!< Maximum number of nodes in the top-level tree used for domain decomposition */
 
+#define INIT_CAP_VEC_NUM 4  /* Initial capacity for struct 'myVector' */
 
 typedef  long long  peanokey;    /*!< defines the variable type used for Peano-Hilbert keys */
 
@@ -808,6 +809,13 @@ extern FLOAT Velmin[3], Velmax[3], VelminGlobal[3], VelmaxGlobal[3];
 extern int ntotscat;
 extern int ntotngb;
 extern double deltaf;
+
+// implement feature like 'std::vector' in C++
+typedef struct {
+    double *data;      // Pointer to the array of doubles
+    size_t size;       // Current number of elements
+    size_t capacity;   // Total allocated capacity
+} myVector;
 
 #endif
 
