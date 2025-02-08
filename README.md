@@ -1,2 +1,2 @@
-# SIDM_noncomoving_demao
-SIDM simulation in non-comving coordinates based on Gadget-2
+# SIDM_order_op_demao
+Optimise the order of SIDM module based on Gadget-2
