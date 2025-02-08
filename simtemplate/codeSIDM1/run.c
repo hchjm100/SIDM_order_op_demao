@@ -33,7 +33,10 @@ void run(void)
     {
       t0 = second();
 
-      find_next_sync_point_and_drift();	/* find next synchronization point and drift particles to this time.
+      myVector mvec;
+      vector_init(&mvec, INIT_CAP_VEC_NUM);
+
+      find_next_sync_point_and_drift(&mvec);	/* find next synchronization point and drift particles to this time.
 					 * If needed, this function will also write an output file
 					 * at the desired time.
 					 */
@@ -47,6 +50,10 @@ void run(void)
       compute_accelerations(0);	/* compute accelerations for 
 				 * the particles that are to be advanced  
 				 */
+
+      cal_sidm(&mvec);  /* calculate SIDM module */
+
+      vector_free(&mvec);
 
       /* check whether we want a full energy statistics */
       if((All.Time - All.TimeLastStatistics) >= All.TimeBetStatistics)
@@ -148,7 +155,7 @@ void run(void)
  *  the desired time of a snapshot file, the function will drift to this
  *  moment, generate an output, and then resume the drift.
  */
-void find_next_sync_point_and_drift(void)
+void find_next_sync_point_and_drift(myVector *mvec)
 {
   int n, min, min_glob, flag, *temp;
   double timeold;
@@ -205,6 +212,10 @@ void find_next_sync_point_and_drift(void)
 
   while(min_glob >= All.Ti_nextoutput && All.Ti_nextoutput >= 0)
     {
+      // only for non-comoving simulation, i.e. All.ComovingIntegrationOn == 0
+      double dt_drift = (All.Ti_nextoutput - All.Ti_Current) * All.Timebase_interval;
+      if(dt_drift > 0) vector_push_back(&mvec, dt_drift);
+
       move_particles(All.Ti_Current, All.Ti_nextoutput);
 
       All.Ti_Current = All.Ti_nextoutput;
@@ -225,6 +236,10 @@ void find_next_sync_point_and_drift(void)
 
     }
 
+  // only for non-comoving simulation, i.e. All.ComovingIntegrationOn == 0
+  double dt_drift = (min_glob - All.Ti_Current) * All.Timebase_interval;
+  if(dt_drift > 0) vector_push_back(&mvec, dt_drift);
+
   move_particles(All.Ti_Current, min_glob);
 
   All.Ti_Current = min_glob;
@@ -237,7 +252,17 @@ void find_next_sync_point_and_drift(void)
   All.TimeStep = All.Time - timeold;
 }
 
-
+/* calculate SIMD module */
+void cal_sidm(myVector *mvec) {
+    size_t tot_num = mvec.size;
+    printf("The capacity of vector for calculating SIDM is %zu.\n", tot_num);
+    if(tot_num != 0) {
+        for (size_t i = 0; i < tot_num; i++) {
+            double dt_drift = mvec.data[i];
+            sidm(dt_drift);
+        }
+    }
+}
 
 /*! this function returns the next output time that is equal or larger to
  *  ti_curr

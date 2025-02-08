@@ -55,7 +55,8 @@ add_executable(SIDM_order_op_demao
         simtemplate/input/io.h
         simtemplate/input/routines.c
         simtemplate/input/routines.h
-        simtemplate/input/spheric.c)
+        simtemplate/input/spheric.c
+        simtemplate/codeSIDM1/myvector.c)
 
 # Link your target with MPI (C interface) and GSL libraries
 target_link_libraries(

@@ -67,7 +67,7 @@ void   fill_write_buffer(enum iofields blocknr, int *pindex, int pc, int type);
 void   find_dt_displacement_constraint(double hfac);
 int    find_files(char *fname);
 int    find_next_outputtime(int time);
-void   find_next_sync_point_and_drift(void);
+void   find_next_sync_point_and_drift(myVector *mvec);
 
 void   force_create_empty_nodes(int no, int topnode, int bits, int x, int y, int z, int *nodecount, int *nextfree);
 void   force_exchange_pseudodata(void);
@@ -206,4 +206,12 @@ double fcosthM(double costh,double v,double vw);
 int    ngb_sidm(FLOAT searchcenter[3], double TypicalDist, int *startnode);
 int    doscatt(int bullet, int mode,double dt_drift,double TypicalDist);
 int    sidm_compare_key(const void *a, const void *b);
+// Calculate SIDM module
+void cal_sidm(myVector *mvec);
 
+// Function to initialize the vector with an initial capacity
+void vector_init(myVector *vec, size_t initial_capacity);
+// Function to append a new element to the vector
+void vector_push_back(myVector *vec, double value);
+// Function to free the allocated memory
+void vector_free(myVector *vec);
