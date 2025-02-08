@@ -229,7 +229,7 @@ OBJS   = main.o  run.o  predict.o begrun.o endrun.o global.o  \
 	 domain.o  allvars.o potential.o  \
          forcetree.o   peano.o gravtree_forcetest.o \
 	 pm_periodic.o pm_nonperiodic.o longrange.o \
-	 sidm.o ngb_sidm.o doscatt.o 
+	 sidm.o ngb_sidm.o doscatt.o myvector.o
 
 INCL   = allvars.h  proto.h  tags.h  Makefile
 
