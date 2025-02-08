@@ -254,11 +254,11 @@ void find_next_sync_point_and_drift(myVector *mvec)
 
 /* calculate SIMD module */
 void cal_sidm(myVector *mvec) {
-    size_t tot_num = mvec.size;
+    size_t tot_num = mvec->size;
     printf("The capacity of vector for calculating SIDM is %zu.\n", tot_num);
     if(tot_num != 0) {
         for (size_t i = 0; i < tot_num; i++) {
-            double dt_drift = mvec.data[i];
+            double dt_drift = mvec->data[i];
             sidm(dt_drift);
         }
     }
